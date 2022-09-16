@@ -18,8 +18,13 @@ export const library = {
   },
   async edit() {},
   async remove() {},
-  async get() {
-    return await db.library.toArray();
+  async get(key) {
+    if (key) {
+      let res = await db.library.get(key);
+      return res;
+    } else {
+      return await db.library.toArray();
+    }
   },
 };
 
@@ -58,12 +63,17 @@ export const setting = {
     let res = await db.setting.get(key);
     return res;
   },
-  async get() {
-    const collection = await db.setting.toCollection();
-    let res = {};
-    collection.each((value, { key }) => {
-      res[key] = value;
-    });
-    return res;
+  async get(key) {
+    if (key) {
+      let res = await db.setting.get(key);
+      return res;
+    } else {
+      const collection = await db.setting.toCollection();
+      let res = {};
+      collection.each((value, { key }) => {
+        res[key] = value;
+      });
+      return res;
+    }
   },
 };

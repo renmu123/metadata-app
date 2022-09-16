@@ -6,6 +6,8 @@
 
 <script setup lang="ts">
 import HomeView from "./views/HomeView.vue";
+import { useLibraryStore } from "./store";
 
-window.electronAPI.ipcRenderer.send("message", "Hello from App.vue!");
+const store = useLibraryStore();
+store.getCurrentLibrary();
 </script>
